@@ -1,41 +1,44 @@
 <!-- zadanie 12 ver2 - stoper -->
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>iPhone Stopwatch Clone</title>
-    <link rel="stylesheet" href="style.css" />
-  </head>
 
-  <body>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <title>iPhone Stopwatch Clone</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+  <section class="stopwatch">
     <h1>iPhone Style Stopwatch</h1>
     <div class="container">
       <div class="screen">
         <button class="start">
           <p>Start</p>
         </button>
-        <button class="reset">
+        <!-- <button class="reset">
           <p>Reset</p>
-        </button>
-        <button class="stop">
+        </button> -->
+        <!-- <button class="stop">
           <p>Reset</p>
-        </button>
+        </button> -->
         <button class="lap">Lap</button>
         <div class="time">
           <div>---</div>
         </div>
-        <ul class="laps"></ul>
+        <ul id="rem" class="laps"></ul>
       </div>
       <div class="iphone">
         <img class="image1" src="src/img/iPhoneScreen.svg" alt="" />
       </div>
-      <div class="iphone_bottom">
+      <!-- <div class="iphone_bottom">
         <img class="image2" src="src/img/bottomMenu.jpg" alt="" />
-      </div>
+      </div> -->
     </div>
+  </section>
+  <script src="main.js"></script>
+</body>
 
-    <script src="main.js"></script>
-  </body>
 </html>

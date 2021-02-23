@@ -1,55 +1,38 @@
 * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+   margin: 0;
+   padding: 0;
+   box-sizing: border-box;
+}
+
+body {
+   height: 100vh;
+   font-family: Arial, Helvetica, sans-serif;
+   background-image: linear-gradient(
+      to top right,
+      rgb(13, 149, 233),
+      rgb(211, 47, 159)
+   );
+}
+
+.stopwatch h1 {
+   font-size: 2rem;
+   text-align: center;
+   color: white;
+   padding-top: 4rem;
 }
 
 .container {
-  max-width: 1200px;
-  margin-top: 2rem;
-  margin: 0 auto;
+   margin: 0 auto;
+   width: 365px;
+   height: 75vh;
+   border: 2px solid black;
 }
 
-.iphone {
-  padding-top: 2rem;
-  max-width: 400px;
-  position: relative;
-  margin: 0 auto;
-  border: 2px solid red;
-  z-index: -2;
-}
-.iphone .image1 {
-  width: 100%;
-  z-index: -1;
-}
-.image1,
-.image2 {
-  display: block;
-  margin: 0 auto;
+.container .screen {
+   border: solid 4px red;
 }
 
-.iphone_bottom .image2 {
-  width: 30%;
-  margin-top: -110px;
-}
-
-.iphone {
-  position: relative;
-}
-
-.screen {
-  display: flex;
-  position: absolute;
-  top: 40%;
-  left: 40%;
-
-  border: 3px solid pink;
-}
-
-.time {
-  position: absolute;
-  top: -600%;
-  left: -30%;
-  font-size: 4rem;
-  color: white;
+.start {
+   color: white;
+   background-color: green;
 }
