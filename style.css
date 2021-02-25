@@ -36,3 +36,8 @@ body {
    color: white;
    background-color: green;
 }
+
+li {
+   text-decoration: none;
+   list-style: none;
+}

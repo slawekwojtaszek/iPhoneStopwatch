@@ -10,97 +10,102 @@ let activeCounter = false;
 let startTime = 0;
 let idI;
 let lapNumber = 0;
-let flag = false;
-let mainButton = (btnStart.textContent = "Start");
+let ms = 0;
+let sec = 0;
+let min = 0;
 
-div.textContent = "00:00.00";
-
-// Clear all laps
-function deleteLaps() {
-   lapsUl.remove();
-   startTime = 0;
-   div.textContent = "00:00.00";
-}
+let timerFunction = () => {
+   ms++;
+   if (ms >= 100) {
+      sec++;
+      ms = 0;
+   }
+   if (sec === 60) {
+      min++;
+      sec = 0;
+   }
+   if (min === 60) {
+      ms, sec, (min = 0);
+   }
+};
 
 // Update time
-const updateStopper = () => {
+
+const updateTime = () => {
    if (activeCounter === true) {
+      timerFunction();
+      let milli = ms < 10 ? `0` + ms : ms;
+      let seconds = sec < 10 ? `0` + sec : sec;
+      let minute = min < 10 ? `0` + min : min;
       startTime++;
-      div.textContent = "00:" + 0.0 + (startTime / 100).toFixed(2);
+      div.textContent = `${minute}:${seconds}:${milli}`;
    }
 };
 
 // Run timer
-setInterval(updateStopper, 10);
+
+setInterval(updateTime, 10);
 
 // Create new lap and add to an array and DOM
+
 const createNewLap = () => {
-   const lapScore = (startTime / 100).toFixed(3);
+   timerFunction();
+   let milli = ms < 10 ? `0` + ms : ms;
+   let seconds = sec < 10 ? `0` + sec : sec;
+   let minute = min < 10 ? `0` + min : min;
+   startTime++;
+   let lapScore = (div.textContent = `${minute}:${seconds}:${milli}`);
+
+   (startTime / 100).toFixed(3);
    lapResults.push(lapScore);
    lapNumber++;
+
    let newLi = document.createElement("li");
-   newLi.textContent = `Lap ${lapNumber}: ${lapScore}`;
+   newLi.innerHTML = `Lap ${lapNumber}: ${lapScore}`;
    lapsUl.appendChild(newLi);
-};
-
-//Clear laps
-
-const clearLaps = () => {
-   if (lap.textContent === "Lap") {
-      console.log("lap");
-   } else if (lap.textContent === "Reset") {
-      deleteLaps();
-      btnStart.textContent = "Start";
-   }
-};
-
-// Reset / Lap
-const resetLap = () => {
-   if (activeCounter === true) {
-      btnStart.textContent = "Start";
-      btnStart.style.backgroundColor = "rgb(34, 75, 34)";
-      btnStart.style.color = "greenyellow";
-      activeCounter = false;
-   }
-
-   console.log("elo");
+   console.log(newLi);
 };
 
 // Handle Change
 
-const handleChange = () => {
-   if (activeCounter === true) {
-      btnStart.textContent = "Stop";
-      btnStart.style.backgroundColor = "rgb(106, 37, 37)";
-      btnStart.style.color = "red";
-   } else if (activeCounter === false) {
-      btnStart.textContent = "Start";
-      btnStart.style.backgroundColor = "rgb(106, 37, 37)";
-      btnStart.style.color = "greem";
-   }
-};
-
-//Handle start button
-const startStoper = () => {
-   if (activeCounter === false) {
-      activeCounter = true;
-      handleChange();
-   } else if (activeCounter === true) {
-      // lap.textContent === "LAP";
-      resetLap();
+const handleLapButton = () => {
+   if (lap.textContent === "Lap" && activeCounter === true) {
+      createNewLap();
+   } else if (lap.textContent === "Reset") {
+      lapsUl.innerHTML = "";
+      //Reset
+      div.textContent = "00:00.00";
+      startTime = 0;
+      lapNumber = 0;
+      ms = 0;
+      sec = 0;
+      min = 0;
    }
 };
 
 //Handle lap button
-const addLap = () => {
-   if (activeCounter === true) {
-      createNewLap();
-   }
 
-   // clearLaps();
+const handleStartButton = () => {
+   if (btnStart.textContent === "Start") {
+      //Change button
+      btnStart.textContent = "Stop";
+      btnStart.style.backgroundColor = "rgb(106, 37, 37)";
+      btnStart.style.color = "red";
+      lap.textContent = "Lap";
+      //Start timer
+      activeCounter = true;
+   } else if (btnStart.textContent === "Stop") {
+      //Change button
+      btnStart.textContent = "Start";
+      btnStart.style.backgroundColor = "green";
+      btnStart.style.color = "white";
+      lap.textContent = "Reset";
+      //Stop timer
+      activeCounter = false;
+   }
 };
 
 // Event Listeners
 
-btnStart.addEventListener("click", startStoper);
-lap.addEventListener("click", addLap);
+btnStart.addEventListener("click", handleStartButton);
+lap.addEventListener("click", handleLapButton);
