@@ -1,19 +1,20 @@
+//Import DOM elements
 const btnStart = document.querySelector("button.start");
-const reset = document.querySelector(".reset");
-const div = document.querySelector(".time div");
-const lap = document.querySelector(".lap");
-const lapsUl = document.querySelector(".laps");
-const stop = document.querySelector(".stop");
+const btnLap = document.querySelector(".lap");
+const screenTime = document.querySelector(".time div");
+const lapsList = document.querySelector(".laps");
 const lapResults = [];
 
+//Variables
 let activeCounter = false;
 let startTime = 0;
-let idI;
 let lapNumber = 0;
 let ms = 0;
 let sec = 0;
 let min = 0;
+let idI;
 
+//Create timer format
 let timerFunction = () => {
    ms++;
    if (ms >= 100) {
@@ -29,8 +30,7 @@ let timerFunction = () => {
    }
 };
 
-// Update time
-
+// Update timer
 const updateTime = () => {
    if (activeCounter === true) {
       timerFunction();
@@ -38,43 +38,45 @@ const updateTime = () => {
       let seconds = sec < 10 ? `0` + sec : sec;
       let minute = min < 10 ? `0` + min : min;
       startTime++;
-      div.textContent = `${minute}:${seconds}:${milli}`;
+      screenTime.textContent = `${minute}:${seconds}:${milli}`;
    }
 };
 
 // Run timer
-
 setInterval(updateTime, 10);
 
 // Create new lap and add to an array and DOM
-
 const createNewLap = () => {
    timerFunction();
    let milli = ms < 10 ? `0` + ms : ms;
    let seconds = sec < 10 ? `0` + sec : sec;
    let minute = min < 10 ? `0` + min : min;
    startTime++;
-   let lapScore = (div.textContent = `${minute}:${seconds}:${milli}`);
-
-   (startTime / 100).toFixed(3);
-   lapResults.push(lapScore);
+   let lapScore = (screenTime.textContent = `${minute}:${seconds}:${milli}`);
    lapNumber++;
+   //Create single lap element
+   let singleLap = document.createElement("screenTime");
+   singleLap.classList.add("single-lap");
+   let newLapNumber = document.createElement("li");
+   let newLapResult = document.createElement("p");
+   //Append single lap element
+   newLapNumber.innerHTML = `Lap ${lapNumber}`;
+   newLapResult.innerHTML = `${lapScore}`;
+   singleLap.appendChild(newLapNumber);
+   singleLap.appendChild(newLapResult);
 
-   let newLi = document.createElement("li");
-   newLi.innerHTML = `Lap ${lapNumber}: ${lapScore}`;
-   lapsUl.appendChild(newLi);
-   console.log(newLi);
+   lapsList.appendChild(singleLap);
 };
 
-// Handle Change
-
+// Handle lap button
 const handleLapButton = () => {
-   if (lap.textContent === "Lap" && activeCounter === true) {
+   if (btnLap.textContent === "Lap" && activeCounter === true) {
       createNewLap();
-   } else if (lap.textContent === "Reset") {
-      lapsUl.innerHTML = "";
-      //Reset
-      div.textContent = "00:00.00";
+   } else if (btnLap.textContent === "Reset") {
+      lapsList.innerHTML = "";
+      btnLap.textContent = "Lap";
+      //Variables reset
+      screenTime.textContent = "00:00.00";
       startTime = 0;
       lapNumber = 0;
       ms = 0;
@@ -83,15 +85,14 @@ const handleLapButton = () => {
    }
 };
 
-//Handle lap button
-
+//Handle start button
 const handleStartButton = () => {
    if (btnStart.textContent === "Start") {
       //Change button
       btnStart.textContent = "Stop";
       btnStart.style.backgroundColor = "rgb(106, 37, 37)";
       btnStart.style.color = "red";
-      lap.textContent = "Lap";
+      btnLap.textContent = "Lap";
       //Start timer
       activeCounter = true;
    } else if (btnStart.textContent === "Stop") {
@@ -99,13 +100,12 @@ const handleStartButton = () => {
       btnStart.textContent = "Start";
       btnStart.style.backgroundColor = "green";
       btnStart.style.color = "white";
-      lap.textContent = "Reset";
+      btnLap.textContent = "Reset";
       //Stop timer
       activeCounter = false;
    }
 };
 
 // Event Listeners
-
 btnStart.addEventListener("click", handleStartButton);
-lap.addEventListener("click", handleLapButton);
+btnLap.addEventListener("click", handleLapButton);

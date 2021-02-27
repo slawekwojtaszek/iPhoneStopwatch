@@ -3,41 +3,120 @@
    padding: 0;
    box-sizing: border-box;
 }
-
 body {
+   position: relative;
+
+   width: 100vw;
    height: 100vh;
-   font-family: Arial, Helvetica, sans-serif;
+   font-family: Helvetica, sans-serif;
    background-image: linear-gradient(
       to top right,
       rgb(13, 149, 233),
       rgb(211, 47, 159)
    );
 }
-
-.stopwatch h1 {
-   font-size: 2rem;
-   text-align: center;
-   color: white;
-   padding-top: 4rem;
-}
-
 .container {
+   position: absolute;
+   top: 50%;
+   left: 50%;
+   transform: translate(-50%, -50%);
+   display: flex;
    margin: 0 auto;
-   width: 365px;
-   height: 75vh;
-   border: 2px solid black;
+   width: 360px;
+   height: 77vh;
+   /* border: 4px solid salmon; */
 }
 
-.container .screen {
-   border: solid 4px red;
+/* iPhone Elements */
+
+.iphone {
+   display: flex;
+   justify-content: center;
+   align-content: space-between;
+   flex-direction: column;
+   background-position-x: 50%;
+   background-position-y: 50%;
+   background-image: url(/src/img/iPhoneScreen.svg);
+   width: 100%;
+   height: 100%;
+   background-repeat: no-repeat;
+}
+.bottom {
+   position: absolute;
+   top: 88%;
+   left: 9%;
+   background-image: url(/src/img/bottomMenu.jpg);
+   height: 6.8vh;
+   width: 100%;
+   background-size: contain;
+   background-repeat: no-repeat;
 }
 
-.start {
+/* Timer Screen */
+.time {
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   height: 110%;
    color: white;
-   background-color: green;
 }
 
-li {
-   text-decoration: none;
+.time div {
+   font-size: 4rem;
+   text-align: center;
+}
+
+/*Buttons*/
+.buttons {
+   display: flex;
+   justify-content: space-around;
+   align-items: center;
+   padding-bottom: 1.5rem;
+   height: 20%;
+   width: 100%;
+   outline: none;
+}
+.start {
+   color: greenyellow;
+   background-color: rgb(52, 94, 52);
+   font-size: 0.9rem;
+}
+.lap {
+   color: rgb(210, 210, 210);
+   background-color: rgba(79, 78, 78, 0.639);
+}
+.buttons .start,
+.buttons .lap {
+   border-radius: 50%;
+   border-style: solid;
+   border-color: white;
+   height: 7vh;
+   width: 7vh;
+   outline: none;
+   color: white;
+}
+
+/* Laps Section */
+.laps {
+   margin: 0 auto 6.2rem auto;
+   height: 60%;
+   width: 90%;
+   overflow: scroll;
+   scrollbar-color: red yellow;
+}
+.laps::-webkit-scrollbar {
+   width: 7px;
+}
+.laps::-webkit-scrollbar-thumb {
+   border-radius: 6px;
+   border: 9px solid white;
+}
+
+.single-lap {
+   display: flex;
+   padding: 0.4rem 0.8rem;
    list-style: none;
+
+   justify-content: space-between;
+   color: white;
 }
