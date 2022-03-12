@@ -9,6 +9,14 @@ const lapResults = [];
 let activeCounter = false;
 let startTime = 0;
 let lapNumber = 0;
+
+let lapScore;
+
+const allLaps = [];
+
+const highest = Math.max(...allLaps);
+const lowest = Math.max(...allLaps);
+
 let ms = 0;
 let sec = 0;
 let min = 0;
@@ -45,6 +53,11 @@ const updateTime = () => {
 // Run timer
 setInterval(updateTime, 10);
 
+const compareLaps = () => {
+   console.log(highest);
+   console.log(lowest);
+};
+
 // Create new lap and add to an array and DOM
 const createNewLap = () => {
    timerFunction();
@@ -52,7 +65,7 @@ const createNewLap = () => {
    let seconds = sec < 10 ? `0` + sec : sec;
    let minute = min < 10 ? `0` + min : min;
    startTime++;
-   let lapScore = (screenTime.textContent = `${minute}:${seconds}:${milli}`);
+   lapScore = screenTime.textContent = `${minute}:${seconds}:${milli}`;
    lapNumber++;
    //Create single lap element
    let singleLap = document.createElement("screenTime");
@@ -65,7 +78,10 @@ const createNewLap = () => {
    singleLap.appendChild(newLapNumber);
    singleLap.appendChild(newLapResult);
 
-   lapsList.appendChild(singleLap);
+   lapsList.prepend(singleLap);
+
+   allLaps.push(lapScore);
+   compareLaps();
 };
 
 // Handle lap button
@@ -83,6 +99,7 @@ const handleLapButton = () => {
       sec = 0;
       min = 0;
    }
+   compareLaps();
 };
 
 //Handle start button
@@ -91,6 +108,8 @@ const handleStartButton = () => {
       //Change button
       btnStart.textContent = "Stop";
       btnStart.style.backgroundColor = "rgb(106, 37, 37)";
+      btnStart.style.outlineColor = "rgb(106, 37, 37)";
+
       btnStart.style.color = "red";
       btnLap.textContent = "Lap";
       //Start timer
@@ -98,8 +117,9 @@ const handleStartButton = () => {
    } else if (btnStart.textContent === "Stop") {
       //Change button
       btnStart.textContent = "Start";
-      btnStart.style.backgroundColor = "green";
-      btnStart.style.color = "white";
+      btnStart.style.backgroundColor = "rgb(24, 50, 28)";
+      btnStart.style.outlineColor = "rgb(24, 50, 28)";
+      btnStart.style.color = "rgb(96, 205, 112)";
       btnLap.textContent = "Reset";
       //Stop timer
       activeCounter = false;
